@@ -47,9 +47,7 @@ canvas.addEventListener('mousemove', (e) => {
 })
 
 // if jumps between 'mousemove' events are bigger than 
-// the size, than its easy to differentiate the line and the circle
-
-
+// the stablished size, than the printed line stands out and its circles are shown
 
 function calcAndDrawNeededCircles(x,y,x1,y1){
 
