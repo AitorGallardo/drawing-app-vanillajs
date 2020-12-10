@@ -5,13 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
+    <script src="https://kit.fontawesome.com/1087dfc9f6.js" crossorigin="anonymous"></script>
     <script defer src="./script.js"></script>
     <title>Drawing App</title>
 </head>
 
 <body>
     <canvas width="800" height="600"></canvas>
-
+    <div class="draw-options">
+        <div class="stroke-size-selectors">
+            <button>
+                <i class="x1 fas fa-circle"></i>
+            </button>
+            <button>
+                <i class="x2 fas fa-circle"></i>
+            </button>
+            <button>
+                <i class="x3 fas fa-circle"></i>
+            </button>
+        </div>
+        <div class="grid-color">
+            <button class="red"></button>
+            <button class="orange"></button>
+            <button class="yellow"></button>
+            <button class="green"></button>
+            <button class="blue"></button>
+            <button class="dark-blue"></button>
+            <button class="purple"></button>
+            <button class="magenta"></button>
+            <button class="black"></button>
+            <button class="grey"></button>
+        </div>
+        <span id="clear"></span>
+    </div>
 </body>
 
 </html>

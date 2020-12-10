@@ -16,3 +16,82 @@ body{
 canvas{
     border: 1px solid black;
 }
+
+.draw-options{
+    display: flex;
+    align-items: center;
+    border: 2px solid black;
+    padding: 2rem;
+}
+
+.draw-options > *{
+    margin: 0 .5rem;
+}
+
+.stroke-size-selectors{
+    display: flex;
+    align-items: center;
+}
+
+i.x1{
+    font-size: .3rem;
+}
+i.x2{
+    font-size: .6rem;
+}
+i.x3{
+    font-size: .9rem;
+}
+
+.grid-color{
+    display: grid;
+    grid-gap: .1rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+.grid-color .red {
+    background-color: red;
+}
+.grid-color .orange {
+    background-color: orange;
+}
+.grid-color .yellow {
+    background-color: yellow;
+}
+.grid-color .green {
+    background-color: green;
+}
+.grid-color .blue {
+    background-color: rgb(39, 39, 250);
+}
+.grid-color .dark-blue {
+    background-color: rgb(3, 3, 100);
+}
+.grid-color .purple {
+    background-color: purple;
+}
+.grid-color .magenta {
+    background-color: magenta;
+}
+.grid-color .black {
+    background-color: black;
+}
+.grid-color .grey {
+    background-color: grey;
+}
+
+button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 1.5rem;
+    min-width: 1.5rem;
+    border: 1px solid black;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+}
+
+button:active{
+    transform: translate(1px,1px);
+}
