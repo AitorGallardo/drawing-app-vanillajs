@@ -63,34 +63,34 @@ i.x3{
 
 }
 
-.grid-color .red {
+.grid-color #red {
     background-color: red;
 }
-.grid-color .orange {
+.grid-color #orange {
     background-color: orange;
 }
-.grid-color .yellow {
+.grid-color #yellow {
     background-color: yellow;
 }
-.grid-color .green {
+.grid-color #green {
     background-color: green;
 }
-.grid-color .blue {
-    background-color: rgb(39, 39, 250);
+.grid-color #royalblue {
+    background-color: royalblue;
 }
-.grid-color .dark-blue {
-    background-color: rgb(3, 3, 100);
+.grid-color #darkblue {
+    background-color: darkblue;
 }
-.grid-color .purple {
+.grid-color #purple {
     background-color: purple;
 }
-.grid-color .magenta {
+.grid-color #magenta {
     background-color: magenta;
 }
-.grid-color .black {
+.grid-color #black {
     background-color: black;
 }
-.grid-color .grey {
+.grid-color #grey {
     background-color: grey;
 }
 

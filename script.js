@@ -1,9 +1,11 @@
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
+const colors = document.querySelectorAll('.grid-color > *')
+
 let x = 0;
 let y = 0;
-const size = 5;
+let size = 5;
 let mousedown = false;
 
 canvas.addEventListener('mousedown', (e) => {
@@ -31,6 +33,19 @@ canvas.addEventListener('mousemove', (e) => {
     }
 })
 
+console.log(`colors`,colors);
+
+colors.forEach((color)=>{
+    color.addEventListener('click',()=>{
+        pickColor(color.id)
+    })
+
+})
+
+// colors.addEventListener('click',()=>{
+//     console.log(`clickingcolors`,);
+// })
+
 
 function drawLine(x0, y0, x1, y1, size) {
     ctx.beginPath();
@@ -48,6 +63,15 @@ function drawCircle(x,y,size) {
 
 
 
-function changeColor() {
-    ctx.strokeStyle = "#FF0000";
+function pickColor(color) {
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+}
+
+function clear(){
+    context.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function pickStrokeSize(size){
+    size = size;
 }
