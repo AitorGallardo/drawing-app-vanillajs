@@ -66,11 +66,6 @@ function pickColor(color,ctx) {
     ctx.fillStyle = color;
 }
 
-
-function pickStrokeSize(sz){
-    size = sz;
-}
-
 function clear(canvas,ctx){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
@@ -80,6 +75,5 @@ export {
     drawLine,    
     drawCircle,    
     pickColor,    
-    clear,    
-    pickStrokeSize       
+    clear       
 }
