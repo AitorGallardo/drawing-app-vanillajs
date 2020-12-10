@@ -6,10 +6,16 @@
 
 body{
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 600px;
 }
 
 
@@ -19,13 +25,17 @@ canvas{
 
 .draw-options{
     display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     border: 2px solid black;
+    background-color: #d0c9c9;
     padding: 2rem;
+    min-height: 100%;
 }
 
 .draw-options > *{
-    margin: 0 .5rem;
+    margin: .5rem 0;
 }
 
 .stroke-size-selectors{
@@ -46,9 +56,13 @@ i.x3{
 .grid-color{
     display: grid;
     grid-gap: .1rem;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    justify-content: space-between;
+    align-content: space-between;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+
 }
+
 .grid-color .red {
     background-color: red;
 }
