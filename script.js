@@ -1,11 +1,12 @@
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
+const stroke_sizes = document.querySelectorAll('.stroke-size-selectors > button')
 const colors = document.querySelectorAll('.grid-color > *')
 
 let x = 0;
 let y = 0;
-let size = 5;
+let size = 3;
 let mousedown = false;
 
 canvas.addEventListener('mousedown', (e) => {
@@ -39,7 +40,14 @@ colors.forEach((color)=>{
     color.addEventListener('click',()=>{
         pickColor(color.id)
     })
+})
 
+stroke_sizes.forEach((stroke_size)=>{
+    const size = parseInt(stroke_size.id.split('-')[1]);
+    console.log(`size`,size);
+    stroke_size.addEventListener('click',()=>{
+        pickStrokeSize(size)
+    })
 })
 
 // colors.addEventListener('click',()=>{
@@ -72,6 +80,8 @@ function clear(){
     context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function pickStrokeSize(size){
-    size = size;
+function pickStrokeSize(sz){
+    console.log(`picked`,size);
+    console.log(`typeof`,typeof size);
+    size = sz;
 }
