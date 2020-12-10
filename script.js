@@ -1,8 +1,9 @@
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
-const stroke_sizes = document.querySelectorAll('.stroke-size-selectors > button')
-const colors = document.querySelectorAll('.grid-color > *')
+const stroke_sizes_buttons = document.querySelectorAll('.stroke-size-selectors > button')
+const colors_buttons = document.querySelectorAll('.grid-color > *')
+const clear_button = document.querySelector('#clear')
 
 let x = 0;
 let y = 0;
@@ -34,15 +35,15 @@ canvas.addEventListener('mousemove', (e) => {
     }
 })
 
-console.log(`colors`,colors);
+console.log(`colors_buttons`,colors_buttons);
 
-colors.forEach((color)=>{
+colors_buttons.forEach((color)=>{
     color.addEventListener('click',()=>{
         pickColor(color.id)
     })
 })
 
-stroke_sizes.forEach((stroke_size)=>{
+stroke_sizes_buttons.forEach((stroke_size)=>{
     const size = parseInt(stroke_size.id.split('-')[1]);
     console.log(`size`,size);
     stroke_size.addEventListener('click',()=>{
@@ -50,8 +51,13 @@ stroke_sizes.forEach((stroke_size)=>{
     })
 })
 
-// colors.addEventListener('click',()=>{
-//     console.log(`clickingcolors`,);
+clear_button.addEventListener('click',()=>{
+    console.log(`clear`,);
+    clear();
+})
+
+// colors_buttons.addEventListener('click',()=>{
+//     console.log(`clickingcolors_buttons`,);
 // })
 
 
@@ -77,7 +83,7 @@ function pickColor(color) {
 }
 
 function clear(){
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function pickStrokeSize(sz){
