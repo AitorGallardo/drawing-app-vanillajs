@@ -9,18 +9,30 @@ let x = 0;
 let y = 0;
 let size = 1;
 let mousedown = false;
+let mouseenter = false;
+
+
+
 
 canvas.addEventListener('mousedown', (e) => {
     x = e.offsetX;
     y = e.offsetY;
 
     mousedown = true;
+    console.log(`mouseDOWN`,);
 })
 canvas.addEventListener('mouseup', (e) => {
     mousedown = false;
+    console.log(`mouseUP`,);
+})
+
+canvas.addEventListener('mouseout', (e) => {
+    mousedown = false;
+    console.log(`mouseOUT`,);
 })
 
 canvas.addEventListener('mousemove', (e) => {
+    console.log(`mouseMOVE`,);
 
     if (mousedown) {
         const x1 = e.offsetX;
