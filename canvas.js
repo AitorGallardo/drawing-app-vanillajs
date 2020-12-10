@@ -19,27 +19,22 @@ export default function Canvas(canvas, buttons = {}) {
         this.y = e.offsetY;
 
         this.mousedown = true;
-        console.log(`mouseDOWN`,);
     })
     this.canvas.addEventListener('mouseup', (e) => {
         this.mousedown = false;
-        console.log(`mouseUP`,);
     })
 
     this.canvas.addEventListener('mouseout', (e) => {
         this.mousedown = false;
-        console.log(`mouseOUT`,);
     })
 
     this.canvas.addEventListener('mousemove', (e) => {
-        console.log(`mouseMOVE`,);
-
         if (this.mousedown) {
             const x1 = e.offsetX;
             const y1 = e.offsetY;
-            //console.log(`x,y,x1,y1`,x,y,x1,y1);
-            //calcAndDrawNeededCircles(x,y,x1,y1,size,ctx)
-            Utils.drawCircle(x1, y1, this.size, this.ctx)
+            console.log(`x,y,x1,y1`,this.x,this.y,x1,y1);
+            Utils.calcAndDrawNeededCircles(this.x,this.y,x1,y1,this.size,this.ctx)
+            //Utils.drawCircle(x1, y1, this.size, this.ctx)
             Utils.drawLine(this.x, this.y, x1, y1, this.size,this. ctx)
             this.x = x1;
             this.y = y1;
