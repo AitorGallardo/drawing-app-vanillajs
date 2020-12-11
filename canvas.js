@@ -27,13 +27,13 @@ export default function Canvas(canvas, buttons = {}) {
     this.canvas.addEventListener('mouseout', (e) => {
         this.mousedown = false;
     })
-    
+
     this.canvas.addEventListener('mousemove', (e) => {
         if (this.mousedown) {
             const x1 = e.offsetX;
             const y1 = e.offsetY;
 
-            Utils.createLineOnMouseMove(this.x, this.y, x1, y1, this.size,this.ctx,counter)
+            Utils.createLineOnMouseMove(this.x, this.y, x1, y1, this.size,this.ctx)
 
             this.x = x1;
             this.y = y1;
