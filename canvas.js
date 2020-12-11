@@ -27,20 +27,14 @@ export default function Canvas(canvas, buttons = {}) {
     this.canvas.addEventListener('mouseout', (e) => {
         this.mousedown = false;
     })
-    let counter = 0;
+    
     this.canvas.addEventListener('mousemove', (e) => {
         if (this.mousedown) {
             const x1 = e.offsetX;
             const y1 = e.offsetY;
 
-            //using counter var 2 debug
-            // if(counter<10){
-            //     Utils.drawCompoundLine(this.x, this.y, x1, y1, this.size,this.ctx)
-            // }else{
-            //     //alert()
-            // }
-            Utils.drawCompoundLine(this.x, this.y, x1, y1, this.size,this.ctx,counter)
-            counter++;
+            Utils.createLineOnMouseMove(this.x, this.y, x1, y1, this.size,this.ctx,counter)
+
             this.x = x1;
             this.y = y1;
         }
