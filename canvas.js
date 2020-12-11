@@ -5,7 +5,6 @@ export default function Canvas(canvas, buttons = {}) {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext("2d");
 
-
     this.x = 0;
     this.y = 0;
     this.size = 1;
@@ -13,6 +12,7 @@ export default function Canvas(canvas, buttons = {}) {
 
     this.pickColor = (color) => Utils.pickColor(color,this.ctx);
     this.clear = () => Utils.clear(this.canvas,this.ctx);
+
 
     this.canvas.addEventListener('mousedown', (e) => {
         this.x = e.offsetX;
@@ -27,15 +27,20 @@ export default function Canvas(canvas, buttons = {}) {
     this.canvas.addEventListener('mouseout', (e) => {
         this.mousedown = false;
     })
-
+    let counter = 0;
     this.canvas.addEventListener('mousemove', (e) => {
         if (this.mousedown) {
             const x1 = e.offsetX;
             const y1 = e.offsetY;
-            console.log(`x,y,x1,y1`,this.x,this.y,x1,y1);
-            Utils.calcAndDrawNeededCircles(this.x,this.y,x1,y1,this.size,this.ctx)
-            //Utils.drawCircle(x1, y1, this.size, this.ctx)
-            Utils.drawLine(this.x, this.y, x1, y1, this.size,this. ctx)
+
+            //using counter var 2 debug
+            // if(counter<10){
+            //     Utils.drawCompoundLine(this.x, this.y, x1, y1, this.size,this.ctx)
+            // }else{
+            //     //alert()
+            // }
+            Utils.drawCompoundLine(this.x, this.y, x1, y1, this.size,this.ctx,counter)
+            counter++;
             this.x = x1;
             this.y = y1;
         }

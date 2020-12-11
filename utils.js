@@ -7,6 +7,16 @@ function drawLine(x0, y0, x1, y1, size, ctx) {
     ctx.stroke();
 }
 
+function drawLinePath2D(x0, y0, x1, y1, size, ctx) {
+    const line = new Path2D();
+    ctx.beginPath();
+    ctx.lineWidth = size * 2;
+    line.moveTo(x0, y0);
+    line.lineTo(x1, y1);
+    ctx.stroke(line);
+    return line;
+}
+
 function drawCircle(x, y, size, ctx) {
     ctx.beginPath();
     ctx.arc(x, y, size, 0, 2 * Math.PI);
@@ -22,60 +32,138 @@ function clear(canvas, ctx) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-/*If mouse is moved fast, there is times in which spans between pos0 and pos1 are bigger
-and its needed to create more circles on the line path*/
+/*If mouse has been moved quickly, there is times in which spans between pos0 and pos1 events are too big
+the circles in the line stands out, thats why its needed to create more circles on the line path*/
 
-function calcAndDrawNeededCircles(x, y, x1, y1, size, ctx) {
+function drawCompoundLine(x0, y0, x1, y1, size, ctx) {
 
-    const xdif = x1 - x
-    const ydif = y1 - y
-    const abs_xdif = Math.abs(xdif)
-    const abs_ydif = Math.abs(ydif)
-    const circleDiameter = size * 2;
+    drawLine(x0, y0, x1, y1, size, ctx);
 
-    const x0x1_span_too_big = abs_xdif > circleDiameter
-    const y0y1_span_too_big = abs_ydif > circleDiameter
-
-    if (x0x1_span_too_big || y0y1_span_too_big) {
-        const nCirclesX = Math.round(abs_xdif / circleDiameter)
-        const nCirclesY = Math.round(abs_ydif / circleDiameter) //can be negatives?
-
-        const nCircles = nCirclesX>nCirclesY? nCirclesX: nCirclesY;
-
-        const getTypeOfIncrementX = () => {
-            if (xdif > 0) return (newPosition) => (newPosition + circleDiameter)
-            if (xdif < 0) return (newPosition) => (newPosition - circleDiameter)
-            return (newPosition) => newPosition;
-        }
-        const getTypeOfIncrementY = () => {
-            if (ydif > 0) return (newPosition) => (newPosition + circleDiameter)
-            if (ydif < 0) return (newPosition) => (newPosition - circleDiameter)
-            return (newPosition) => newPosition;
-        }
-
-        const incrementX = getTypeOfIncrementX()
-        const incrementY = getTypeOfIncrementY()
-
-        let newX = x
-        let newY = y
-
-        for (let i = 0; i < nCircles; i++) {
-            drawCircle(newX, newY, size, ctx)
-
-            newX = incrementX(newX)
-
-            newY = incrementY(newY)
-        }
-
-    } else {
-        drawCircle(x1, y1, size, ctx)
+    // if difX is positve it means line direction in x axis is positive
+    const difX = (x1 - x0)
+    const difY = (y1 - y0)
+    const difYABS = Math.abs(y1 - y0)
+    const difXABS = Math.abs(x1 - x0)
+        
+    // function to create another function that either add or subtract depending on the direction of the line;
+    const getTypeOfIncrementX = () => {
+        if (difX > 0) return (increment) => (x0 + increment)
+        if (difX < 0) return (increment) => (x0 - increment)
+        return (increment) => x0;
     }
+    const getTypeOfIncrementY = () => {
+        if (difY > 0) return (increment) => (y0 + increment)
+        if (difY < 0) return (increment) => (y0 - increment)
+        return (increment) => y0;
+    }
+    const incrementX = getTypeOfIncrementX();
+    const incrementY = getTypeOfIncrementY();
+    
+    
+    let updatedX = x0;
+    let updatedY = y0;        
+
+
+    for (let ix = 0; ix <= difXABS; ix++) {
+        updatedX = incrementX(ix)        
+        for (let iy = 0; iy <= difYABS; iy++) {
+            updatedY = incrementY(iy);  
+
+            const isPointPartOfTheLine = getDistanceFromPointToLine(updatedX,x0,x1,updatedY,y0,y1) < 1;
+
+            if (isPointPartOfTheLine) {                
+                drawCircle(updatedX, updatedY, size, ctx)
+            }
+        }
+    }
+
 }
+
+
+function getDistanceFromPointToLine(px, lineX1, lineX2, py, lineY1, lineY2) {
+    const difX = lineX2 - lineX1;
+    const difY = lineY2 - lineY1;
+    const distance = Math.abs(difY * px - difX * py - lineX1 * lineY2 + lineX2 * lineY1) / Math.sqrt(Math.pow(difX, 2) + Math.pow(difY, 2));
+
+    return distance;
+}
+
+/*This loop checks all the posible points between p0-p1 of the line. 
+Then the distance between that point and the line is calculated, and if
+that distance is shorter than 1px it is assumed that is indeed part of that line.*/
+function getAllPointInLine(x0, y0, x1, y1,difXABS,difYABS,increment){
+
+    let updatedX = x0;
+    let updatedY = y0;  
+    const allLinePoints = [];
+
+    for (let ix = 0; ix <= difXABS; ix++) {
+        updatedX = increment.x(x0,ix)        
+        for (let iy = 0; iy <= difYABS; iy++) {
+            updatedY = increment.y(x0,iy);  
+
+            const isPointPartOfTheLine = getDistanceFromPointToLine(updatedX,x0,x1,updatedY,y0,y1) < 1;
+
+            if (isPointPartOfTheLine) {                
+                allLinePoints.push({x:updatedX,y:updatedY})
+            }
+        }
+    }
+    return allLinePoints;
+}
+
+function createLineOnMouseMove(x0, y0, x1, y1, size, ctx) {
+
+    drawLine(x0, y0, x1, y1, size, ctx);
+
+    // if difX is positive it means line direction in x axis is positive
+    const difX = (x1 - x0)
+    const difY = (y1 - y0)
+    const difXABS = Math.abs(x1 - x0)
+    const difYABS = Math.abs(y1 - y0)
+        
+    
+    const increment = getTypeOfIncrement(difX,difY);
+     
+    const allPointsInLine = getAllPointInLine(x0, y0, x1, y1,difXABS,difYABS,increment)
+
+    allPointsInLine.forEach((p)=>{
+        drawCircle(p.x,p.y,size,ctx)
+    })
+
+}
+
+/*function to create another function that either add 
+    or subtract to de inital position depending on the direction of the line;*/ 
+
+function getTypeOfIncrement(difX,difY){
+
+    const increment = {};
+
+    const getTypeOfIncrementX = () => {
+        if (difX > 0) return (inital, increment) => (inital + increment)
+        if (difX < 0) return (inital, increment) => (inital - increment)
+        return (increment) => inital;
+    }
+    const getTypeOfIncrementY = () => {
+        if (difY > 0) return (inital, increment) => (inital + increment)
+        if (difY < 0) return (inital, increment) => (inital - increment)
+        return (inital, increment) => inital;
+    }
+
+    increment.x = getTypeOfIncrementX();
+    increment.y = getTypeOfIncrementY();
+
+    return increment;    
+}
+
 
 export {
     drawLine,
+    drawLinePath2D,
     drawCircle,
     pickColor,
     clear,
-    calcAndDrawNeededCircles
+    drawCompoundLine,
+    createLineOnMouseMove
 }
