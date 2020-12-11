@@ -38,7 +38,7 @@ function createLineOnMouseMove(x0, y0, x1, y1, size, ctx) {
 
     drawLine(x0, y0, x1, y1, size, ctx);
 
-    // if difX is positive it means line direction in x axis is positive
+    // If difX is positive it means line direction in x axis is positive
     const difX = (x1 - x0)
     const difY = (y1 - y0)
     const difXABS = Math.abs(x1 - x0)
@@ -55,8 +55,8 @@ function createLineOnMouseMove(x0, y0, x1, y1, size, ctx) {
 
 }
 
-/*function to create another function that either add 
-    or subtract to de inital position depending on the direction of the line;*/ 
+/*Function to return a function that can either add 
+    or subtract to de inital position depending on the direction of the line*/ 
 
 function _getTypeOfIncrement(difX,difY){
 
@@ -79,9 +79,7 @@ function _getTypeOfIncrement(difX,difY){
     return increment;    
 }
 
-/*This loop checks all the posible points between p0-p1 of the line. 
-Then the distance between that point and the line is calculated, and if
-that distance is shorter than 1px it is assumed that is indeed part of that line.*/
+/*The loop checks all the posible points between p0-p1 of the line. That can be part of the line*/
 function _getAllPointsInLine(x0, y0, x1, y1,difXABS,difYABS,increment){
 
     let updatedX = x0;
@@ -92,7 +90,8 @@ function _getAllPointsInLine(x0, y0, x1, y1,difXABS,difYABS,increment){
         updatedX = increment.x(x0,ix)        
         for (let iy = 0; iy <= difYABS; iy++) {
             updatedY = increment.y(y0,iy);  
-
+            /*The distance between point and the line is calculated, and if
+            that distance is shorter than 1px it is assumed that is part of that line.*/
             const isPointPartOfTheLine = _getDistanceFromPointToLine(updatedX,x0,x1,updatedY,y0,y1) < 1;
 
             if (isPointPartOfTheLine) {                
