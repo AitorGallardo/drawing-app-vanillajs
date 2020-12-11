@@ -47,7 +47,7 @@ function createLineOnMouseMove(x0, y0, x1, y1, size, ctx) {
     
     const increment = _getTypeOfIncrement(difX,difY);
 
-    const allPointsInLine = _getAllPointInLine(x0, y0, x1, y1,difXABS,difYABS,increment)
+    const allPointsInLine = _getAllPointsInLine(x0, y0, x1, y1,difXABS,difYABS,increment)
     
     allPointsInLine.forEach((p)=>{
         drawCircle(p.x,p.y,size,ctx)
@@ -82,7 +82,7 @@ function _getTypeOfIncrement(difX,difY){
 /*This loop checks all the posible points between p0-p1 of the line. 
 Then the distance between that point and the line is calculated, and if
 that distance is shorter than 1px it is assumed that is indeed part of that line.*/
-function _getAllPointInLine(x0, y0, x1, y1,difXABS,difYABS,increment){
+function _getAllPointsInLine(x0, y0, x1, y1,difXABS,difYABS,increment){
 
     let updatedX = x0;
     let updatedY = y0;  
