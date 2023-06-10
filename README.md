@@ -9,3 +9,9 @@
 ## //TODO
 ### Create lines, rescale, move them.
 ### Fill, eraser, pointers like paint on enter canvas, move, scale.
+
+## Update
+Instead of darawing circles in order of achieve a thicker stroke I could actually use this:
+- ctx.lineJoin='round'; 
+- ctx.lineCap='round'; 
+- ctx.lineWidth=50; 
